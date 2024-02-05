@@ -1,0 +1,29 @@
+#property strict
+
+// Define variables
+double lastPrice = 0;
+double netVolumeArray[];
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+{
+   // Create the custom indicator
+   SetIndexBuffer(0, netVolumeArray);
+   SetIndexStyle(0, DRAW_HISTOGRAM);
+   SetIndexLabel(0, "Net Volume");
+
+   // Initialize the array with zero values
+   ArraySetAsSeries(netVolumeArray, true);
+   ArrayResize(netVolumeArray, Bars);
+
+   return(INIT_SUCCEEDED);
+}
+
+
+
+void OnDeinit(const int reason)
+{
+   // No need for additional deinitialization in this example
+}
