@@ -21,3 +21,31 @@ int OnInit()
 
    return(INIT_SUCCEEDED);
 }
+
+
+void OnTick()
+{
+   // Get the current price and time
+   double currentPrice = SymbolInfoDouble(_Symbol, SYMBOL_LAST);
+   datetime currentTime = iTime(_Symbol, PERIOD_CURRENT, 0);
+
+   // Check if the price has changed
+   if (currentPrice != lastPrice || currentTime != lastTime)
+   {
+      // Calculate net volume
+      double buyVolume = SymbolInfoInteger(_Symbol, SYMBOL_VOLUME_BUY);
+      double sellVolume = SymbolInfoInteger(_Symbol, SYMBOL_VOLUME_SELL);
+      double netVolume = buyVolume - sellVolume;
+
+      // Find the corresponding array index for the current price
+      int index = iBarShift(_Symbol, PERIOD_CURRENT, currentPrice, 0);
+
+      // Update the net volume array
+      netVolumeArray[index] = netVolume;
+
+      // Update the last price and time for the next tick
+      lastPrice = currentPrice;
+      lastTime = currentTime;
+   }
+}
+
