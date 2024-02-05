@@ -49,3 +49,7 @@ void OnTick()
    }
 }
 
+void OnDeinit(const int reason)
+{
+   // No need for additional deinitialization in this example
+}
